@@ -1,5 +1,6 @@
 use std::env;
 use std::fs;
+use std::time::Instant;
 
 struct PaperRolls {
     columns: i32,
@@ -10,6 +11,8 @@ struct PaperRolls {
 }
 
 fn main() {
+    let start = Instant::now();
+
     let args: Vec<String> = env::args().collect();
 
     if args.len() < 2 {
@@ -19,7 +22,10 @@ fn main() {
 
     let mut grid = parse_grid(&args);
     while process_all(&mut grid) > 0 {};
+    let duration = start.elapsed();
 
+    println!("Elapsed: {:?}", duration);
+    println!("Seconds: {}", duration.as_secs_f64());
     println!("Total rolls removed: {}", grid.removed);
 }
 
