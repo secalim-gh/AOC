@@ -24,6 +24,7 @@ type Node struct {
 type BTree struct {
   root *Node
   count uint32
+  fresh_ids uint64
 }
 
 func (t *BTree) print() {
@@ -31,17 +32,19 @@ func (t *BTree) print() {
 		fmt.Println("Empty Tree")
 		return
 	}
-	t.walkAndPrint(t.root)
+	t.walkAndApply(t.root, func(n *Node) {
+    fmt.Printf("(%d, %d)\n", n.lval, n.rval)
+  })
   fmt.Println(t.count, "nodes")
 }
 
-func (t *BTree) walkAndPrint(n *Node) {
+func (t *BTree) walkAndApply(n *Node, f func(*Node)) {
 	if n == nil {
 		return
 	}
-	t.walkAndPrint(n.lnode)
-	fmt.Printf("(%d, %d)\n", n.lval, n.rval)
-	t.walkAndPrint(n.rnode)
+	t.walkAndApply(n.lnode, f)
+	f(n)
+	t.walkAndApply(n.rnode, f)
 }
 
 func (t *BTree) add(node *Node) {
@@ -70,8 +73,20 @@ func (t *BTree) add(node *Node) {
   }
 }
 	
+func (t *BTree) getRangeExtension() uint64 {
+	if t.root == nil {
+		fmt.Println("Empty Tree")
+		return 0
+  }
+  t.fresh_ids = 0
+  t.walkAndApply(t.root, func(n *Node) {
+    t.fresh_ids += (n.rval - n.lval + 1)
+  })
+  return t.fresh_ids
+}
+
 func treeFromString(str string) BTree {
-  t := BTree{nil, 0}
+  t := BTree{nil, 0, 0}
   clean := s.Split(str, "\n")
   var nodes []*Node
 
@@ -155,4 +170,6 @@ func main() {
   }
   
   fmt.Println("There are", fresh_products, "fresh products")
+  fmt.Println("There are", tree.getRangeExtension(), "fresh IDs")
 }
+
