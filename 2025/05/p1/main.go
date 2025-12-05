@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	// "strconv"
+	"strconv"
 	s "strings"
 )
 
@@ -11,6 +11,10 @@ func check(e error) {
 	if e != nil {
 		panic(e)
 	}
+}
+
+struct Node {
+  
 }
 
 func main() {
@@ -23,11 +27,14 @@ func main() {
 	fmt.Println("Filepath is", fpath);
 	wholefile, err := os.ReadFile(fpath)
   check(err)
-	strdata := s.Split(string(wholefile[:]), "-")
-	// for s.Compare(strdata, "\n") == 0 {
-		fmt.Println(strdata[0])
-  //}
+  strdata := string(wholefile)
+	clean := s.Split(strdata, "\n")
+  for _, v := range clean {
+    u := s.Split(v[:], "-")
+    if len(u[0]) == 0 { break }
+    n, _ := strconv.ParseUint(u[0], 10, 32)
+    n2, _ := strconv.ParseUint(u[1], 10, 32)
+    fmt.Println(n, n2)
+  }
 		
-	// u, _ := strconv.ParseUint("789", 0, 64)
-	// fmt.Println(u)
 }
