@@ -1,17 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"strconv"
-	s "strings"
+  "fmt"
+  "os"
+  "strconv"
+  s "strings"
   "sort"
 )
 
 func check(e error) {
-	if e != nil {
-		panic(e)
-	}
+  if e != nil {
+    panic(e)
+  }
 }
 
 type Node struct {
@@ -28,23 +28,23 @@ type BTree struct {
 }
 
 func (t *BTree) print() {
-	if t.root == nil {
-		fmt.Println("Empty Tree")
-		return
-	}
-	t.walkAndApply(t.root, func(n *Node) {
+  if t.root == nil {
+    fmt.Println("Empty Tree")
+    return
+  }
+  t.walkAndApply(t.root, func(n *Node) {
     fmt.Printf("(%d, %d)\n", n.lval, n.rval)
   })
   fmt.Println(t.count, "nodes")
 }
 
 func (t *BTree) walkAndApply(n *Node, f func(*Node)) {
-	if n == nil {
-		return
-	}
-	t.walkAndApply(n.lnode, f)
-	f(n)
-	t.walkAndApply(n.rnode, f)
+  if n == nil {
+    return
+  }
+  t.walkAndApply(n.lnode, f)
+  f(n)
+  t.walkAndApply(n.rnode, f)
 }
 
 func (t *BTree) add(node *Node) {
@@ -72,11 +72,11 @@ func (t *BTree) add(node *Node) {
     p.rnode = node
   }
 }
-	
+
 func (t *BTree) getRangeExtension() uint64 {
-	if t.root == nil {
-		fmt.Println("Empty Tree")
-		return 0
+  if t.root == nil {
+    fmt.Println("Empty Tree")
+    return 0
   }
   t.fresh_ids = 0
   t.walkAndApply(t.root, func(n *Node) {
@@ -145,16 +145,16 @@ func (t *BTree) isFresh(n uint64) bool {
 }
 
 func main() {
-	argc := len(os.Args)
-	if argc < 2 {
-		fmt.Println("Provide filepath");
-		return	
-	}
-  
-	fpath := os.Args[1]
-	wholefile, err := os.ReadFile(fpath)
+  argc := len(os.Args)
+  if argc < 2 {
+    fmt.Println("Provide filepath");
+    return	
+  }
+
+  fpath := os.Args[1]
+  wholefile, err := os.ReadFile(fpath)
   check(err)
-  
+
   strdata := string(wholefile)
   i := s.LastIndex(strdata, "\n\n")
   tree := treeFromString(strdata[:i])
@@ -168,7 +168,7 @@ func main() {
       fresh_products++
     }
   }
-  
+
   fmt.Println("There are", fresh_products, "fresh products")
   fmt.Println("There are", tree.getRangeExtension(), "fresh IDs")
 }
