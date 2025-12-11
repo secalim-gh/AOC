@@ -8,6 +8,6 @@
 ### Day 7:&nbsp;&nbsp;&nbsp;[Ruby](https://github.com/secalim-gh/AOC/tree/main/2025/07)
 ### Day 8:&nbsp;&nbsp;&nbsp;[Java](https://github.com/secalim-gh/AOC/tree/main/2025/08)
 ### Day 9:&nbsp;&nbsp;&nbsp;[Lua](https://github.com/secalim-gh/AOC/tree/main/2025/09)
-### Day 10: [TypeScript](https://github.com/secalim-gh/AOC/tree/main/2025/10)
-### Day 11:&nbsp;&nbsp;[Python](https://github.com/secalim-gh/AOC/tree/main/2025/11)
+### Day 10: [Python](https://github.com/secalim-gh/AOC/tree/main/2025/10)
+### Day 11:&nbsp;&nbsp;[TypeScript](https://github.com/secalim-gh/AOC/tree/main/2025/11)
 ### Day 12:&nbsp;&nbsp;[C](https://github.com/secalim-gh/AOC/tree/main/2025/12)
